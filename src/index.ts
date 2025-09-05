@@ -13,9 +13,14 @@ import userRouter from "./routes/user.route";
 // Load environment variables
 dotenv.config();
 
+import faceService from "./services/face.service";
+
 // Create Express app
 const app = express();
 const PORT = process.env.PORT || 5000;
+
+// Initialize face service
+faceService.init();
 
 // Middleware
 app.use(helmet({}));

@@ -16,11 +16,9 @@ class FaceService {
         ImageData: ImageData as any,
       });
     }
-
-    this.loadModels();
   }
 
-  private async loadModels() {
+  async init() {
     if (this.modelsLoaded) return;
 
     await Promise.all([
