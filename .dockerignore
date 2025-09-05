@@ -1,0 +1,5 @@
+node_modules/
+uploads/
+Dockerfile
+.env
+npm-debug.log
