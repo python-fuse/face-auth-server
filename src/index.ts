@@ -9,6 +9,7 @@ import { requestLogger } from "./middleware/requestLogger";
 
 // Import routes
 import userRouter from "./routes/user.route";
+import authRouter from "./routes/auth.route";
 
 // Load environment variables
 dotenv.config();
@@ -42,7 +43,9 @@ app.get("/health", (req, res) => {
 });
 
 // Routes
+
 app.use("/api/users", userRouter);
+app.use("/api/auth", authRouter);
 
 // Error handling middleware
 app.use(errorHandler);
