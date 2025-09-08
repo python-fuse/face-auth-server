@@ -15,6 +15,7 @@ import authRouter from "./routes/auth.route";
 dotenv.config();
 
 import faceService from "./services/face.service";
+import path, { join } from "path";
 
 // Create Express app
 const app = express();
@@ -24,7 +25,14 @@ const PORT = process.env.PORT || 5000;
 faceService.init();
 
 // Middleware
-app.use(helmet({}));
+app.use(
+  helmet({
+    crossOriginEmbedderPolicy: false,
+    crossOriginResourcePolicy: {
+      policy: "cross-origin",
+    },
+  })
+);
 app.use(
   cors({
     origin: ["http://localhost:5173"],
@@ -43,6 +51,17 @@ app.get("/health", (req, res) => {
 });
 
 // Routes
+app.use(
+  "/uploads",
+  express.static(path.join(__dirname, "..", "uploads"), {
+    maxAge: 86400000, // Cache for 1 day
+    setHeaders: (res, filePath) => {
+      if (filePath.match(/\.(jpg|jpeg|png|gif)$/)) {
+        res.setHeader("Content-Type", "image/" + filePath.split(".").pop());
+      }
+    },
+  })
+);
 
 app.use("/api/users", userRouter);
 app.use("/api/auth", authRouter);

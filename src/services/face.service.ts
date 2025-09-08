@@ -63,7 +63,7 @@ class FaceService {
 
     fs.rmSync(uploadedImage);
 
-    return distance > 0.6 ? false : true;
+    return distance > 0.4 ? false : true;
   }
 }
 
